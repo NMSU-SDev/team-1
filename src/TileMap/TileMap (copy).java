@@ -95,32 +95,5 @@ public class TileMap {
 			e.printStackTrace();
 		}
 	}
-   
-        public int getTileSize( ) {
-           return tileSize;
-        }
-   
-        public int getx( ) {
-           return ( int ) x;
-        }
-   
-        public int gety( ) {
-           return ( int ) y;
-        }
-   
-        public int getWidth( ) {
-           return width;
-        }
-   
-        public int getHeight( ) {
-           return height;
-        }
-   
-        public int getType( int row, int col ) {
-           int rc = map[ row ] [ col ];
-           int r = rc / numTilesAcross;
-           int c = rc % numTilesAcross;
-           return tiles[ r ][ c ].getType( );
-        }
 
 }
