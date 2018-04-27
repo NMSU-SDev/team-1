@@ -4,17 +4,17 @@ import TileMap.Background;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class MenuState extends GameState {
+public class ShopState extends GameState {
    
    private Background bg;
    
    private int currentChoice = 0;
-   private String [] options = {"Start", "Difficulty","Store","Controls","Quit"};
+   private String [] options = {"Damage Increase - 25", "Health Increase - 25","GOD MODE - 1000","Back to menu" };
    private Color titleColor;
    private Font titleFont;
    private Font font;
    
-   public MenuState( GameStateManager gsm ) {
+   public ShopState( GameStateManager gsm ) {
       this.gsm = gsm;
       
       try{
@@ -39,7 +39,7 @@ public class MenuState extends GameState {
 	   bg.draw(g);
 	   g.setColor(titleColor);
 	   g.setFont(titleFont);
-	   g.drawString("Git Clucked", 50, 70);
+	   g.drawString("Shop", 80, 70);
 	   
 	   g.setFont(font);
 	   for(int i =0; i<options.length; i++){
@@ -49,26 +49,22 @@ public class MenuState extends GameState {
 		   else {
 			   g.setColor(Color.BLUE);
 		   }
-		   g.drawString(options[i],130,110 + i * 15);
+		   g.drawString(options[i],90,110 + i * 15);
 	   }
    }
    
    private void select(){
 	   if(currentChoice == 0){
-		   gsm.setState(GameStateManager.LEVEL1STATE);
+		   
 	   }
 	   if(currentChoice == 1){
-		   gsm.setState(GameStateManager.DIFFICULTYSTATE);
+		   //difficulty
 	   }
 	   if(currentChoice == 2){
-		   gsm.setState(GameStateManager.SHOPSTATE);
+		   //store
 	   }
 	   if(currentChoice == 3){
-		   //controls
-		   gsm.setState(GameStateManager.CONTROLSTATE);
-	   }
-	   if(currentChoice == 4){
-		   System.exit(0);
+		   gsm.setState(GameStateManager.MENUSTATE);
 	   }
    }
    

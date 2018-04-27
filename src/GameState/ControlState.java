@@ -4,17 +4,18 @@ import TileMap.Background;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class MenuState extends GameState {
+public class ControlState extends GameState {
    
    private Background bg;
    
    private int currentChoice = 0;
-   private String [] options = {"Start", "Difficulty","Store","Controls","Quit"};
+   private String [] options = {"Right Arrow - Move right","Left Arrow - Move left","Down Arrow - defend","Up Arrow - Jump",
+		   					    "Space Bar - attack","Go Back"};
    private Color titleColor;
    private Font titleFont;
    private Font font;
    
-   public MenuState( GameStateManager gsm ) {
+   public ControlState( GameStateManager gsm ) {
       this.gsm = gsm;
       
       try{
@@ -39,7 +40,7 @@ public class MenuState extends GameState {
 	   bg.draw(g);
 	   g.setColor(titleColor);
 	   g.setFont(titleFont);
-	   g.drawString("Git Clucked", 50, 70);
+	   g.drawString("Controls", 80, 70);
 	   
 	   g.setFont(font);
 	   for(int i =0; i<options.length; i++){
@@ -49,44 +50,37 @@ public class MenuState extends GameState {
 		   else {
 			   g.setColor(Color.BLUE);
 		   }
-		   g.drawString(options[i],130,110 + i * 15);
+		   g.drawString(options[i],90,110 + i * 15);
 	   }
    }
    
    private void select(){
 	   if(currentChoice == 0){
-		   gsm.setState(GameStateManager.LEVEL1STATE);
+		   
 	   }
 	   if(currentChoice == 1){
-		   gsm.setState(GameStateManager.DIFFICULTYSTATE);
+		   //difficulty
 	   }
 	   if(currentChoice == 2){
-		   gsm.setState(GameStateManager.SHOPSTATE);
+		   //store
 	   }
 	   if(currentChoice == 3){
 		   //controls
-		   gsm.setState(GameStateManager.CONTROLSTATE);
 	   }
 	   if(currentChoice == 4){
-		   System.exit(0);
+		   
 	   }
+	   if(currentChoice == 5){
+		   gsm.setState(GameStateManager.MENUSTATE);
+	   }
+	  
    }
    
    public void keyPressed( int k ){
 	   if(k == KeyEvent.VK_ENTER){
 		   select();
-	   }
-	   if(k == KeyEvent.VK_UP){
-		   currentChoice--;
-		   if(currentChoice == -1){
-			   currentChoice = options.length - 1;
-		   }
-	   }
-	   if(k == KeyEvent.VK_DOWN){
-		   currentChoice++;
-		   if(currentChoice == options.length){
-			   currentChoice = 0;
-		   }
+		   currentChoice =5;
+	 
 	   }
    }
    public void keyReleased( int k ){
