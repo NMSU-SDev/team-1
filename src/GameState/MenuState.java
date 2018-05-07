@@ -9,7 +9,7 @@ public class MenuState extends GameState {
    private Background bg;
    
    private int currentChoice = 0;
-   private String [] options = {"Start", "Difficulty","Store","Controls","Quit"};
+   private String [] options = {"Start", "Difficulty","Store","Controls","Reset","Quit"};
    private Color titleColor;
    private Font titleFont;
    private Font font;
@@ -68,6 +68,9 @@ public class MenuState extends GameState {
 		   gsm.setState(GameStateManager.CONTROLSTATE);
 	   }
 	   if(currentChoice == 4){
+		   gsm.setState(GameStateManager.RESETSTATE);
+	   }
+	   if(currentChoice == 5){
 		   System.exit(0);
 	   }
    }

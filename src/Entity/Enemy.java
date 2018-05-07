@@ -36,7 +36,7 @@ public class Enemy extends MapObject {
         if( dead || flinching )
            return;
         
-           health = health - damage;
+           health = health - d;
         
         if( health < 0 ){
            health = 0;
@@ -48,6 +48,9 @@ public class Enemy extends MapObject {
 
     public void update( ){
         
+    }
+    public int getHealth( ){
+    	return maxHealth;
     }
 
     public void draw(Graphics2D g){

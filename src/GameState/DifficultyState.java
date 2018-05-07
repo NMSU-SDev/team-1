@@ -3,9 +3,11 @@ package GameState;
 import TileMap.Background;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 public class DifficultyState extends GameState {
-   
+	
    private Background bg;
    
    private int currentChoice = 0;
@@ -54,14 +56,81 @@ public class DifficultyState extends GameState {
    }
    
    private void select(){
+	   int difficulty = 1; 
+	   
 	   if(currentChoice == 0){
-		   
+		   difficulty = 1;
+		   BufferedWriter out = null;
+			try{
+				FileWriter fstream = new FileWriter("difficulty.txt");
+				out = new BufferedWriter(fstream);
+				
+				out.write(String.valueOf(difficulty));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+		   gsm.setState(GameStateManager.MENUSTATE);
 	   }
 	   if(currentChoice == 1){
-		   //difficulty
+		   difficulty = 2;
+		   
+		   BufferedWriter out = null;
+			try{
+				FileWriter fstream = new FileWriter("difficulty.txt");
+				out = new BufferedWriter(fstream);
+				
+				out.write(String.valueOf(difficulty));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+		   gsm.setState(GameStateManager.MENUSTATE);
 	   }
 	   if(currentChoice == 2){
-		   //store
+		   difficulty = 3;
+		   
+		   BufferedWriter out = null;
+			try{
+				FileWriter fstream = new FileWriter("difficulty.txt");
+				out = new BufferedWriter(fstream);
+				
+				out.write(String.valueOf(difficulty));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+		   gsm.setState(GameStateManager.MENUSTATE);
 	   }
 	   if(currentChoice == 3){
 		   gsm.setState(GameStateManager.MENUSTATE);

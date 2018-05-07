@@ -5,6 +5,7 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
+import Entity.Player;
 import main.GamePanel;
 
 public class TileMap {
@@ -123,10 +124,17 @@ public class TileMap {
         }
    
         public int getType( int row, int col ) {
-           int rc = map[ row ] [ col ];
-           int r = rc / numTilesAcross;
-           int c = rc % numTilesAcross;
-           return tiles[ r ][ c ].getType( );
+           try{
+        	   int rc = map[ row ] [ col ];
+        	   int r = rc / numTilesAcross;
+               int c = rc % numTilesAcross;
+               return tiles[ r ][ c ].getType( );
+           }
+           catch( Exception e ){
+        	   Player.dead = true;
+           }
+           return 1;
+           
 		}
 		
 		public void setTween( double d ){

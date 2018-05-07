@@ -150,10 +150,7 @@ public abstract class MapObject {
 		}		
 		if(!falling){
 			calculateCorners(x,ydest +1);
-			if(!bottomLeft && bottomRight){
-				falling = true;
-			}
-			if(!bottomRight && bottomLeft){
+			if(!bottomLeft && !bottomRight){
 				falling = true;
 			}
 		}

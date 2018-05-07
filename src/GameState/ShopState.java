@@ -3,6 +3,13 @@ package GameState;
 import TileMap.Background;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ShopState extends GameState {
    
@@ -54,14 +61,256 @@ public class ShopState extends GameState {
    }
    
    private void select(){
+	   int currency=0;
+	   int health=0;
+	   int damage=0;
+	   File file = new File("xp.txt");
+		BufferedReader reader = null;
+		try{
+			reader = new BufferedReader(new FileReader(file));
+			String text = null;
+			text = reader.readLine();
+			currency = Integer.parseInt(text);
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(reader != null){
+					reader.close();
+				}
+			}
+			catch (IOException e){
+				
+			}
+		}
+		
+		File file2 = new File("damage.txt");
+		BufferedReader reader2 = null;
+		try{
+			reader2 = new BufferedReader(new FileReader(file2));
+			String text = "";
+			text = reader2.readLine();
+			damage = Integer.parseInt(text);
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(reader != null){
+					reader.close();
+				}
+			}
+			catch (IOException e){
+				
+			}
+		}
+		
+		File file3 = new File("health.txt");
+		BufferedReader reader3 = null;
+		try{
+			reader3 = new BufferedReader(new FileReader(file3));
+			String text = null;
+			text = reader3.readLine();
+			health = Integer.parseInt(text);
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(reader != null){
+					reader.close();
+				}
+			}
+			catch (IOException e){
+				
+			}
+		}
 	   if(currentChoice == 0){
-		   
+		   if(currency>=25){
+			   System.out.println(damage);
+			   damage=damage+1;
+			   System.out.println(damage);
+			   currency-=25;
+		   }
+		   BufferedWriter out = null;
+			try{
+				FileWriter fstream = new FileWriter("damage.txt");
+				out = new BufferedWriter(fstream);
+				
+				out.write(String.valueOf(damage));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+			
+			out = null;
+			try{
+				FileWriter fstream = new FileWriter("xp.txt");
+				out = new BufferedWriter(fstream);
+				
+				out.write(String.valueOf(currency));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+			gsm.setState(GameStateManager.MENUSTATE);
 	   }
 	   if(currentChoice == 1){
-		   //difficulty
+		   if(currency>=25){
+			   health+=1;
+			   currency-=25;
+		   }
+		   
+		   
+		   BufferedWriter out1 = null;
+			try{
+				FileWriter fstream1 = new FileWriter("health.txt");
+				out1 = new BufferedWriter(fstream1);
+				
+				out1.write(String.valueOf(health));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out1!=null){
+					try{
+						out1.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+			
+			BufferedWriter out2 = null;
+			try{
+				FileWriter fstream2 = new FileWriter("xp.txt");
+				out2 = new BufferedWriter(fstream2);
+				
+				out2.write(String.valueOf(currency));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out2!=null){
+					try{
+						out2.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+			gsm.setState(GameStateManager.MENUSTATE);
 	   }
+		   
+	   
 	   if(currentChoice == 2){
 		   //store
+		   if(currency>=1000){
+		   damage = Integer.MAX_VALUE;
+		   health = Integer.MAX_VALUE;
+		   currency-=1000;
+		   }
+		   
+		   BufferedWriter out = null;
+			try{
+				FileWriter fstream = new FileWriter("health.txt");
+				out = new BufferedWriter(fstream);
+				
+				out.write(String.valueOf(health));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+			
+			 out = null;
+			try{
+				FileWriter fstream = new FileWriter("damage.txt");
+				out = new BufferedWriter(fstream);
+				
+				out.write(String.valueOf(damage));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+			
+			out = null;
+			try{
+				FileWriter fstream = new FileWriter("xp.txt");
+				out = new BufferedWriter(fstream);
+				
+				out.write(String.valueOf(currency));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+			gsm.setState(GameStateManager.MENUSTATE);
 	   }
 	   if(currentChoice == 3){
 		   gsm.setState(GameStateManager.MENUSTATE);

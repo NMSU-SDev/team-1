@@ -2,13 +2,21 @@ package GameState;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import TileMap.Background;
 import TileMap.TileMap;
 import main.GamePanel;
+import GameState.DifficultyState;
 import Entity.*;
-import Entity.Enemies.Slugger;
+import Entity.Enemies.Chicken;
 public class Level1State extends GameState {
 
 	private TileMap tileMap;
@@ -16,11 +24,11 @@ public class Level1State extends GameState {
 	
 	private Player player;
 	
-
-	private ArrayList<Enemy> enemies; 
+	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
 
 	private HUD hud;
+	
 	
 	public Level1State(GameStateManager gsm){
 		
@@ -42,36 +50,146 @@ public class Level1State extends GameState {
       
 	  populateEnemies();
 	  
+	  
 	  explosions = new ArrayList <Explosion>();
 	  
 	  hud = new HUD( player );
 	}
 	
 	private void populateEnemies(){
-		enemies = new ArrayList<Enemy>();
 		
-		Slugger s;
-		Point[] points = new Point[] {
+		int difficultyLVL=1;
+		File file3 = new File("difficulty.txt");
+		BufferedReader reader3 = null;
+		try{
+			reader3 = new BufferedReader(new FileReader(file3));
+			String text = null;
+			text = reader3.readLine();
+			difficultyLVL = Integer.parseInt(text);
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(reader3 != null){
+					reader3.close();
+				}
+			}
+			catch (IOException e){
+				
+			}
+		}
+		
+		
+		enemies = new ArrayList<Enemy>();
+		Chicken s;
+		Point[] points;
+		if(difficultyLVL==1){
+		points = new Point[] {
 			new Point(200,200),
 			new Point(860,200),
+			new Point(975,200),
 			new Point(1525, 200),
 			new Point(1680,200),
-			new Point(1800, 200)};
+			new Point(1800, 200),
+			new Point(2350,200),
+			new Point(3000,200),
+			new Point(3000,200),
+			new Point(3000,200)};
+		}
+		else if(difficultyLVL==2){
+			points = new Point[] {
+					new Point(200,200),
+					new Point(860,200),
+					new Point(975,200),
+					new Point(985,200),
+					new Point(1525, 200),
+					new Point(1680,200),
+					new Point(1800, 200),
+					new Point(210,200),
+					new Point(850,200),
+					new Point(1535,200),
+					new Point(1670,200),
+					new Point(1810,200),
+					new Point(2350,200),
+					new Point(3000,200),
+					new Point(3000,200),
+					new Point(3000,200),
+					};
+				}
+		else{
+			points = new Point[] {
+					new Point(200,200),
+					new Point(860,200),
+					new Point(975,200),
+					new Point(1525, 200),
+					new Point(1680,200),
+					new Point(1800, 200),
+					new Point(210,200),
+					new Point(850,200),
+					new Point(1535,200),
+					new Point(1670,200),
+					new Point(1810,200),
+					new Point(190,200),
+					new Point(870,200),
+					new Point(1545,200),
+					new Point(1690,200),
+					new Point(1810,200),
+					new Point(2350,200),
+					new Point(2375,200),
+					new Point(2400,200),
+					new Point(2650,200),
+					new Point(2800,200),
+					new Point(2850,200),
+					new Point(2875,200),
+					new Point(3030,200),
+					new Point(3060,200),
+					};
+			}
+		
 		for(int i = 0; i < points.length; i++){
-			s = new Slugger(tileMap);
+			s = new Chicken(tileMap, difficultyLVL);
 			s.setPosition(points[ i ].x ,points[ i ].y);
 			enemies.add(s);
 		}
+		
 		
 	}
 	
 	
 	public void update( ) {
 		player.update();
+		if( player.isDead( ) ){
+			BufferedWriter out = null;
+			try{
+				FileWriter fstream = new FileWriter("xp.txt");
+				out = new BufferedWriter(fstream);
+				out.write(player.getXP());
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			finally{
+				if(out!=null){
+					try{
+						out.close();
+					}
+					catch(IOException e){
+						
+					}
+				}
+			}
+			gsm.setState( 0 );
+		}
 		tileMap.setPosition( GamePanel.WIDTH / 2 - player.getx( ),
 			                 GamePanel.HEIGHT / 2 - player.gety( ));
 		
 		//set background 
+
 		bg.setPosition( tileMap.getx( ), tileMap.gety( ));
 		
 		player.checkAttack(enemies);
@@ -81,7 +199,7 @@ public class Level1State extends GameState {
 			e = enemies.get(i);
 			e.update();
 			if(e.isDead()){
-				player.incrXP( );
+				player.incrXP( 5 );
 				enemies.remove(i);
 				i--;
 				explosions.add(new Explosion (e.getx(),e.gety()));
@@ -112,6 +230,12 @@ public class Level1State extends GameState {
 	  //draw enemies
 	  for( int i = 0; i < enemies.size( ); i++ )
 		enemies.get( i ).draw( g );
+	  
+	  // draw enemy explosions
+	  for (int i = 0; i<explosions.size();i++){
+		  explosions.get(i).setMapPosition((int)tileMap.getx(),(int)tileMap.gety());
+		  explosions.get(i).draw(g);
+	  }
 	  
 	  //draw hud
 	  hud.draw( g );

@@ -1,18 +1,19 @@
 package Entity.Enemies;
 
-import Entity. *;
+import Entity.*;
 import TileMap.TileMap;
+import GameState.GameState;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class Slugger extends Enemy {
+public class Chicken extends Enemy {
 
     private BufferedImage[ ] sprites;
 
-    public Slugger( TileMap t ){
+    public Chicken( TileMap t, int d ){
 
         super( t );
 
@@ -26,8 +27,8 @@ public class Slugger extends Enemy {
         cwidth = 20;
         cheight = 20;
 
-        health = maxHealth = 2;
-        damage = 1;
+        health = maxHealth = 10 * d;
+        damage = 1 * d;
 
         //load sprites
         try{
@@ -93,7 +94,7 @@ public class Slugger extends Enemy {
             }
         }
 
-        //if it hits a wall, go other direstion
+        //if it hits a wall, go other direction
         if( right && dx == 0 ) {
             right = false;
             left = true;

@@ -44,7 +44,8 @@ public class ControlState extends GameState {
 	   
 	   g.setFont(font);
 	   for(int i =0; i<options.length; i++){
-		   if(i == currentChoice) {
+		   if(i == 5) {
+			   currentChoice = 5;
 			   g.setColor(Color.RED);
 		   }
 		   else {
@@ -55,21 +56,6 @@ public class ControlState extends GameState {
    }
    
    private void select(){
-	   if(currentChoice == 0){
-		   
-	   }
-	   if(currentChoice == 1){
-		   //difficulty
-	   }
-	   if(currentChoice == 2){
-		   //store
-	   }
-	   if(currentChoice == 3){
-		   //controls
-	   }
-	   if(currentChoice == 4){
-		   
-	   }
 	   if(currentChoice == 5){
 		   gsm.setState(GameStateManager.MENUSTATE);
 	   }
@@ -79,7 +65,7 @@ public class ControlState extends GameState {
    public void keyPressed( int k ){
 	   if(k == KeyEvent.VK_ENTER){
 		   select();
-		   currentChoice =5;
+		   
 	 
 	   }
    }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.*;
 
 
 public class Player extends MapObject {
@@ -15,7 +16,7 @@ public class Player extends MapObject {
 	private int experience;
 	private int punch;
 	private int maxpunch;
-	private boolean dead;
+	public static boolean dead;
 	private boolean flinching;
 	private long flinchTimer;
 	
@@ -26,7 +27,7 @@ public class Player extends MapObject {
 	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
-	private final int[] numFrames = {2,8,1,2,4,2,5};
+	private final int[] numFrames = {9,8,6,4,6,2,5};
 	
 	// animation actions
 	private static final int IDLE = 0;
@@ -53,11 +54,86 @@ public class Player extends MapObject {
 		stopJumpSpeed = .3;
 		
 		facingRight = true;
+		dead = false;
 		
 		health = maxHealth = 5;
-		experience = 0;
 		punchDamage = 8;
 		punchRange = 40;
+		
+		File file = new File("xp.txt");
+		BufferedReader reader = null;
+		try{
+			reader = new BufferedReader(new FileReader(file));
+			String text = null;
+			text = reader.readLine();
+			setExperience(Integer.parseInt(text));
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(reader != null){
+					reader.close();
+				}
+			}
+			catch (IOException e){
+				
+			}
+		}
+		
+		File file2 = new File("damage.txt");
+		BufferedReader reader2 = null;
+		try{
+			reader2 = new BufferedReader(new FileReader(file2));
+			String text = "";
+			text = reader2.readLine();
+			setDamage(Integer.parseInt(text));
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(reader != null){
+					reader.close();
+				}
+			}
+			catch (IOException e){
+				
+			}
+		}
+		
+		File file3 = new File("health.txt");
+		BufferedReader reader3 = null;
+		try{
+			reader3 = new BufferedReader(new FileReader(file3));
+			String text = "";
+			text = reader3.readLine();
+			setHealth(Integer.parseInt(text));
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(reader != null){
+					reader.close();
+				}
+			}
+			catch (IOException e){
+				
+			}
+		}
 		
 		// load sprites
 		try{
@@ -98,16 +174,19 @@ public class Player extends MapObject {
 		return experience;
 	}
 	public void setDamage( int d ){
-		punchDamage += d;
+		punchDamage = d;
 	}
 	public void setHealth( int h ){
-		health +=h;
+		health = maxHealth = h;
 	}
 	public void setExperience( int e ){
 		experience = e;
 	}
-	public void incrXP( ){
-		experience += 1;
+	public void incrXP( int e ){
+		experience = experience + e;
+	}
+	public String getXP(){
+		return String.valueOf(experience);
 	}
 	public void setPunching(){
 		punching = true;
@@ -115,43 +194,46 @@ public class Player extends MapObject {
 	public void decrXP( int d ){
 		experience -= d;
 	}
-public void checkAttack(ArrayList<Enemy> enemies){
+	public boolean isDead( ){
+		return dead;
+	}
+	public void checkAttack(ArrayList<Enemy> enemies){
 		
 		for(int i =0; i < enemies.size(); i++){
 			Enemy e = enemies.get(i);
 		
 		//check punch
 		
-		if(punching){
-			if(facingRight){
-					if(e.getx() > x && e.getx() < x + punchRange && e.gety() > y - height/2 && e.gety() < y + height/2){
-						e.hit(punchDamage);
-					}
-			}
-			else{
+			if(punching){
+				if(facingRight){
+						if(e.getx() > x && e.getx() < x + punchRange && e.gety() > y - height/2 && e.gety() < y + height/2){
+							e.hit(punchDamage);
+						}
+				}
+				else{
 					if(e.getx()<x && e.getx() > x-punchRange && e.gety()>y - height/2 && e.gety() < y + height/2){
 						e.hit(punchDamage);
 					}
-			}
+				}
 		
 			
 			//check enemy collision
 			
-		}
-		if(intersects(e)){
-			hit(e.getDamage());
+			}
+			if(intersects(e)){
+				hit(e.getDamage());
+			}
 		}
 	}
-}
 
-public void hit(int damage){
-	if(flinching)return;
-	health -= damage;
-	if(health<0) health = 0;
-	if(health==0) dead = true;
-	flinching = true;
-	flinchTimer = System.nanoTime();
-}
+	public void hit(int damage){
+		if(flinching)return;
+		health -= damage;
+		if(health<0) health = 0;
+		if(health==0) dead = true;
+		flinching = true;
+		flinchTimer = System.nanoTime();
+	}
 
 	private void getNextPosition(){
 		//movement
@@ -217,7 +299,7 @@ public void hit(int damage){
 		//check flinching
 		
 		if(flinching){
-			long elapsed = (System.nanoTime()- flinchTimer / 1000000);
+			long elapsed = ( System.nanoTime()- flinchTimer ) / 1000000;
 			if(elapsed > 1000){
 				flinching = false;
 			}
@@ -232,15 +314,16 @@ public void hit(int damage){
 				width = 60;
 			}
 		}
-		else if (currentAction != FALLING){
+		else if(dy >0){
+			if (currentAction != FALLING){
 			currentAction = FALLING;
 			animation.setFrames(sprites.get(FALLING));
 			animation.setDelay(100);
 			width = 30;
 					
-				
 			}
-		
+		}
+
 		else if (left || right){
 			if(currentAction != WALKING){
 				currentAction = WALKING;
@@ -249,6 +332,7 @@ public void hit(int damage){
 				width = 30;
 			}
 		}
+		
 		else {
 			if(currentAction != IDLE){
 				currentAction = IDLE;
@@ -258,6 +342,7 @@ public void hit(int damage){
 			}
 		}
 	
+		
 		animation.update();
 		
 		//set direction
