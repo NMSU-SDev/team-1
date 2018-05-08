@@ -9,7 +9,7 @@ public class ControlState extends GameState {
    private Background bg;
    
    private int currentChoice = 0;
-   private String [] options = {"Right Arrow - Move right","Left Arrow - Move left","Down Arrow - defend","Up Arrow - Jump",
+   private String [] options = {"Right Arrow - Move right","Left Arrow - Move left","Up Arrow - Jump",
 		   					    "Space Bar - attack","Go Back"};
    private Color titleColor;
    private Font titleFont;
@@ -44,8 +44,8 @@ public class ControlState extends GameState {
 	   
 	   g.setFont(font);
 	   for(int i =0; i<options.length; i++){
-		   if(i == 5) {
-			   currentChoice = 5;
+		   if(i == 4) {
+			   currentChoice = 4;
 			   g.setColor(Color.RED);
 		   }
 		   else {
@@ -56,7 +56,7 @@ public class ControlState extends GameState {
    }
    
    private void select(){
-	   if(currentChoice == 5){
+	   if(currentChoice == 4){
 		   gsm.setState(GameStateManager.MENUSTATE);
 	   }
 	  

@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ShopState extends GameState {
-   
+	int currency=0;
    private Background bg;
    
    private int currentChoice = 0;
@@ -47,8 +47,34 @@ public class ShopState extends GameState {
 	   g.setColor(titleColor);
 	   g.setFont(titleFont);
 	   g.drawString("Shop", 80, 70);
-	   
+	   File file = new File("xp.txt");
+		BufferedReader reader = null;
+		try{
+			reader = new BufferedReader(new FileReader(file));
+			String text = null;
+			text = reader.readLine();
+			currency = Integer.parseInt(text);
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(reader != null){
+					reader.close();
+				}
+			}
+			catch (IOException e){
+				
+			}
+		}
 	   g.setFont(font);
+	   g.setColor(Color.GREEN);
+	   g.drawString("Currency left - " + currency,90, 92 );
+	   g.setColor(Color.BLACK);
 	   for(int i =0; i<options.length; i++){
 		   if(i == currentChoice) {
 			   g.setColor(Color.RED);
@@ -61,7 +87,6 @@ public class ShopState extends GameState {
    }
    
    private void select(){
-	   int currency=0;
 	   int health=0;
 	   int damage=0;
 	   File file = new File("xp.txt");

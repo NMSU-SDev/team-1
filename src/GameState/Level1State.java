@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Audio.AudioPlayer;
 import TileMap.Background;
 import TileMap.TileMap;
 import main.GamePanel;
@@ -27,6 +28,10 @@ public class Level1State extends GameState {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
 
+	private AudioPlayer bgMusic;
+	private AudioPlayer nuke;
+	private AudioPlayer punchsound;
+	
 	private HUD hud;
 	
 	
@@ -54,6 +59,11 @@ public class Level1State extends GameState {
 	  explosions = new ArrayList <Explosion>();
 	  
 	  hud = new HUD( player );
+	  
+	  bgMusic = new AudioPlayer("/Music/bgmusic.wav");
+	  bgMusic.play();
+	  nuke = new AudioPlayer("/Music/nuke.wav");
+	  punchsound = new AudioPlayer("/Music/punch.wav");
 	}
 	
 	private void populateEnemies(){
@@ -97,49 +107,56 @@ public class Level1State extends GameState {
 			new Point(1680,200),
 			new Point(1800, 200),
 			new Point(2350,200),
-			new Point(3000,200),
-			new Point(3000,200),
-			new Point(3000,200)};
+			new Point(2800,200),
+			new Point(2850,200),
+			new Point(3030,200),
+			new Point(3060,200)};
 		}
 		else if(difficultyLVL==2){
 			points = new Point[] {
-					new Point(200,200),
-					new Point(860,200),
-					new Point(975,200),
-					new Point(985,200),
-					new Point(1525, 200),
-					new Point(1680,200),
-					new Point(1800, 200),
+					new Point(150,200),
 					new Point(210,200),
+					new Point(250,200),
+					new Point(815,200),
 					new Point(850,200),
-					new Point(1535,200),
+					new Point(970,200),
+					new Point(995,200),
+					new Point(1525, 200),
+					new Point(1550,200),
+					new Point(1650,200),
 					new Point(1670,200),
-					new Point(1810,200),
+					new Point(1790, 200),
+					new Point(1820,200),
 					new Point(2350,200),
-					new Point(3000,200),
-					new Point(3000,200),
-					new Point(3000,200),
+					new Point(2375,200),
+					new Point(2800,200),
+					new Point(2850,200),
+					new Point(3030,200),
+					new Point(3060,200)
 					};
 				}
 		else{
 			points = new Point[] {
+					new Point(125,40),
+					new Point(190,200),
 					new Point(200,200),
-					new Point(860,200),
-					new Point(975,200),
-					new Point(1525, 200),
-					new Point(1680,200),
-					new Point(1800, 200),
 					new Point(210,200),
 					new Point(850,200),
-					new Point(1535,200),
-					new Point(1670,200),
-					new Point(1810,200),
-					new Point(190,200),
 					new Point(870,200),
-					new Point(1545,200),
+					new Point(890,200),
+					new Point(965,200),
+					new Point(995,200),
+					new Point(1015,200),
+					new Point(1525, 200),
+					new Point(1540,200),
+					new Point(1550,200),
+					new Point(1670,200),
 					new Point(1690,200),
+					new Point(1705,200),
+					new Point(1800, 200),
 					new Point(1810,200),
 					new Point(2350,200),
+					new Point(2340,175),
 					new Point(2375,200),
 					new Point(2400,200),
 					new Point(2650,200),
@@ -200,6 +217,7 @@ public class Level1State extends GameState {
 			e.update();
 			if(e.isDead()){
 				player.incrXP( 5 );
+				nuke.play();
 				enemies.remove(i);
 				i--;
 				explosions.add(new Explosion (e.getx(),e.gety()));
@@ -245,8 +263,11 @@ public class Level1State extends GameState {
 		if(k == KeyEvent.VK_RIGHT) player.setRight(true);
 		if(k == KeyEvent.VK_UP) player.setJumping(true);
 		if(k == KeyEvent.VK_DOWN) player.setDown(true);
-		if(k == KeyEvent.VK_SPACE) player.setPunching();
-		
+		if(k == KeyEvent.VK_SPACE) {
+			punchsound.play();
+			player.setPunching();
+		}
+			
 		
 	}
 	public void keyReleased( int k ) {
