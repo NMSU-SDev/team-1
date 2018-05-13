@@ -2,11 +2,16 @@ package GameState;
 
 import java.util.ArrayList;
 
+// this class takes the game state and this is where it is managed adding all the states together 
 public class GameStateManager {
    
    private ArrayList<GameState> gameStates;
    private int currentState;
 
+<<<<<<< HEAD
+   // creating all the states that are used in the game
+=======
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
    
    public static final int MENUSTATE = 0;
    public static final int LEVEL1STATE = 1;
@@ -15,6 +20,7 @@ public class GameStateManager {
    public static final int SHOPSTATE = 4;
    public static final int RESETSTATE = 5;
    
+   // sets up all the game states and puts them together the default state is the menu
    public GameStateManager( ) {
       
       gameStates = new ArrayList<GameState>( );
@@ -28,7 +34,7 @@ public class GameStateManager {
      
       
    }//end constructor
-   
+   // this is the function that sets what state you want to be in from the menu
    public void setState( int state ) {
       currentState = state;
       gameStates.get( currentState ).init( );

@@ -9,8 +9,12 @@ import java.awt.event.*;
 //Main driver for game 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 
+<<<<<<< HEAD
+   
+=======
    //Set the size of the game 
    //Can't be changed
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
    public static final int WIDTH = 320;
    public static final int HEIGHT = 240;
    public static final int SCALE = 2;

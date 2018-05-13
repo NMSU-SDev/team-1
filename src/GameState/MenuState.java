@@ -3,10 +3,10 @@ package GameState;
 import TileMap.Background;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-
+// default state for the game controls navigation to the other states
 public class MenuState extends GameState {
    
-   private Background bg;
+   private Background bg;		// uses same background class
    
    private int currentChoice = 0;
    private String [] options = {"Start", "Difficulty","Store","Controls","Reset","Quit"};
@@ -14,6 +14,7 @@ public class MenuState extends GameState {
    private Font titleFont;
    private Font font;
    
+   // sets up all the fonts and background to be used
    public MenuState( GameStateManager gsm ) {
       this.gsm = gsm;
       
@@ -35,6 +36,7 @@ public class MenuState extends GameState {
    public void update( ){
 	   bg.update();
    }
+   // draws items to the screen
    public  void draw( java.awt.Graphics2D g ){
 	   bg.draw(g);
 	   g.setColor(titleColor);
@@ -52,7 +54,7 @@ public class MenuState extends GameState {
 		   g.drawString(options[i],130,110 + i * 15);
 	   }
    }
-   
+   // this is where the user will select which state they want to navigate to from the main menu
    private void select(){
 	   if(currentChoice == 0){
 		   gsm.setState(GameStateManager.LEVEL1STATE);

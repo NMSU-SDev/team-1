@@ -62,22 +62,38 @@ public abstract class MapObject {
 	protected double jumpStart;
 	protected double stopJumpSpeed;
 	
+<<<<<<< HEAD
+	public MapObject (TileMap tm) {//constructor 
+=======
 	public MapObject (TileMap tm) {
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		tileMap = tm;
 		tileSize = tm.getTileSize();
 	}
 	
+<<<<<<< HEAD
+	public boolean intersects(MapObject o){//check if 2 objects intersect 
+=======
 	public boolean intersects(MapObject o){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();	
 		return r1.intersects(r2);
 	}
 	
+<<<<<<< HEAD
+	public Rectangle getRectangle(){//get location of object 
+		return new Rectangle((int)x-cwidth,(int)y-cheight,cwidth,cheight);
+	}
+	
+	public void calculateCorners(double x, double y){//calculate corners of object 
+=======
 	public Rectangle getRectangle(){
 		return new Rectangle((int)x-cwidth,(int)y-cheight,cwidth,cheight);
 	}
 	
 	public void calculateCorners(double x, double y){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		int leftTile = (int) (x - cwidth/2) / tileSize;
 		int rightTile = (int) (x+ cwidth/2-1)/ tileSize;
 		int topTile = (int) (y - cheight /2)/tileSize;
@@ -97,7 +113,11 @@ public abstract class MapObject {
 	}
 	
 	
+<<<<<<< HEAD
+	public void checkTileMapCollision(){//check if colliding with the map 
+=======
 	public void checkTileMapCollision(){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		currCol = (int) x / tileSize;
 		currRow = (int) y/ tileSize;
 		
@@ -157,6 +177,29 @@ public abstract class MapObject {
 	
 	}
 	
+<<<<<<< HEAD
+	public int getx(){//getter for x 
+		return (int) x;
+	}
+	
+	public int gety(){//getter for y 
+		return (int) y;
+	}
+	public int getWidth(){//getter for width 
+		return width;
+	}
+	public int getHeight(){//getter for height 
+		return height;
+	}
+	public int getCWidth(){//getter for cwidth 
+		return cwidth;
+	}
+	public int getCHeight(){//getter for cheight 
+		return cheight;
+	}
+
+	public void setPosition(double x, double y){//set the position of the object 
+=======
 	public int getx(){
 		return (int) x;
 	}
@@ -178,20 +221,42 @@ public abstract class MapObject {
 	}
 
 	public void setPosition(double x, double y){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		this.x = x;
 		this.y = y;
 	}
 
+<<<<<<< HEAD
+	public void setVector(double dx, double dy){//set direction and speed 
+=======
 	public void setVector(double dx, double dy){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		this.dx = dx;
 		this.dy = dy;
 	}
 
+<<<<<<< HEAD
+	public void setMapPosition(){//set position on map 
+=======
 	public void setMapPosition(){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		xmap = tileMap.getx();
 		ymap = tileMap.gety();
 	}
 
+<<<<<<< HEAD
+	public void setLeft(boolean b){ left = b;}//if facing left 
+	public void setRight(boolean b){right = b;}//if facing right 
+	public void setUp(boolean b){ up = b;}//going up 
+	public void setDown(boolean b){ down = b;}//falling 
+	public void setJumping(boolean b){ jumping = b;}//jumping 
+
+	public boolean notOnScreen(){//if not on screen 
+		return x + xmap + width < 0 || x + xmap - width > GamePanel.WIDTH ||
+			   y + ymap + height < 0 || y + ymap - height > GamePanel.HEIGHT;
+	}
+}
+=======
 	public void setLeft(boolean b){ left = b;}
 	public void setRight(boolean b){right = b;}
 	public void setUp(boolean b){ up = b;}
@@ -203,3 +268,4 @@ public abstract class MapObject {
 			   y + ymap + height < 0 || y + ymap - height > GamePanel.HEIGHT;
 	}
 }
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
