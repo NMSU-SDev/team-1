@@ -3,17 +3,18 @@ package GameState;
 import TileMap.Background;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-
+// default state for the game controls navigation to the other states
 public class MenuState extends GameState {
    
-   private Background bg;
+   private Background bg;		// uses same background class
    
    private int currentChoice = 0;
-   private String [] options = {"Start", "Difficulty","Store","Controls","Quit"};
+   private String [] options = {"Start", "Difficulty","Store","Controls","Reset","Quit"};
    private Color titleColor;
    private Font titleFont;
    private Font font;
    
+   // sets up all the fonts and background to be used
    public MenuState( GameStateManager gsm ) {
       this.gsm = gsm;
       
@@ -35,11 +36,12 @@ public class MenuState extends GameState {
    public void update( ){
 	   bg.update();
    }
+   // draws items to the screen
    public  void draw( java.awt.Graphics2D g ){
 	   bg.draw(g);
 	   g.setColor(titleColor);
 	   g.setFont(titleFont);
-	   g.drawString("Git Clucked", 150, 130);
+	   g.drawString("Git Clucked", 50, 70);
 	   
 	   g.setFont(font);
 	   for(int i =0; i<options.length; i++){
@@ -49,24 +51,28 @@ public class MenuState extends GameState {
 		   else {
 			   g.setColor(Color.BLUE);
 		   }
-		   g.drawString(options[i],230,170 + i * 20);
+		   g.drawString(options[i],130,110 + i * 15);
 	   }
    }
-   
+   // this is where the user will select which state they want to navigate to from the main menu
    private void select(){
 	   if(currentChoice == 0){
 		   gsm.setState(GameStateManager.LEVEL1STATE);
 	   }
 	   if(currentChoice == 1){
-		   //difficulty
+		   gsm.setState(GameStateManager.DIFFICULTYSTATE);
 	   }
 	   if(currentChoice == 2){
-		   //store
+		   gsm.setState(GameStateManager.SHOPSTATE);
 	   }
 	   if(currentChoice == 3){
 		   //controls
+		   gsm.setState(GameStateManager.CONTROLSTATE);
 	   }
 	   if(currentChoice == 4){
+		   gsm.setState(GameStateManager.RESETSTATE);
+	   }
+	   if(currentChoice == 5){
 		   System.exit(0);
 	   }
    }
