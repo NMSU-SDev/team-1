@@ -48,7 +48,11 @@ public class Chicken extends Enemy {
         catch( Exception e ){
             e.printStackTrace( );
         }
+<<<<<<< HEAD
 		//set animation for chicken 
+=======
+
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
         animation = new Animation( );
         animation.setFrames( sprites );
         animation.setDelay( 300 );
@@ -58,7 +62,11 @@ public class Chicken extends Enemy {
 
     }
 
+<<<<<<< HEAD
     private void getNextPostion( ){//gets the postion of the chicken 
+=======
+    private void getNextPostion( ){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 
         if(left){
 			dx -= moveSpeed;
@@ -79,7 +87,11 @@ public class Chicken extends Enemy {
         }
     }
 
+<<<<<<< HEAD
     public void update( ){//updates the chicken 
+=======
+    public void update( ){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 
         //update postion
         getNextPostion();

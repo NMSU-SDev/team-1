@@ -8,14 +8,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 public class DifficultyState extends GameState {
 	
-   private Background bg;
+   private Background bg;		// background to be used
    
    private int currentChoice = 0;
-   private String [] options = {"Easy Peasy","Mediocracy is best", "You're Crazy","Go back"};
+   private String [] options = {"Easy Peasy","Mediocracy is best", "You're Crazy","Go back"}; // text that will be outputed to the screen
    private Color titleColor;
    private Font titleFont;
    private Font font;
    
+   // constructor that sets up the menu choosing the fonts colors and background
    public DifficultyState( GameStateManager gsm ) {
       this.gsm = gsm;
       
@@ -37,6 +38,7 @@ public class DifficultyState extends GameState {
    public void update( ){
 	   bg.update();
    }
+   // draws everything to the screen with selected options lets user go through and select difficulty settings
    public  void draw( java.awt.Graphics2D g ){
 	   bg.draw(g);
 	   g.setColor(titleColor);
@@ -54,7 +56,7 @@ public class DifficultyState extends GameState {
 		   g.drawString(options[i],90,110 + i * 15);
 	   }
    }
-   
+   // writes the difficulty selected to a text document so it can be read from when the game begins
    private void select(){
 	   int difficulty = 1; 
 	   

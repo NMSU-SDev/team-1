@@ -37,14 +37,22 @@ public class Player extends MapObject {
 	private static final int PUNCHING = 4;
 	
 	
+<<<<<<< HEAD
 	public Player(TileMap tm){//constructor 
+=======
+	public Player(TileMap tm){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		super(tm);
 		
 		width = 30;
 		height = 30;
 		cwidth = 20;
 		cheight = 20;
+<<<<<<< HEAD
 		//character stats 
+=======
+		
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		moveSpeed = .5;
 		maxSpeed = 3;
 		stopSpeed = .4;
@@ -59,7 +67,11 @@ public class Player extends MapObject {
 		health = maxHealth = 5;
 		punchDamage = 8;
 		punchRange = 40;
+<<<<<<< HEAD
 		//read and set xp from previous play through 
+=======
+		
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		File file = new File("xp.txt");
 		BufferedReader reader = null;
 		try{
@@ -84,7 +96,11 @@ public class Player extends MapObject {
 				
 			}
 		}
+<<<<<<< HEAD
 		//read and set damage if upgraded 
+=======
+		
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		File file2 = new File("damage.txt");
 		BufferedReader reader2 = null;
 		try{
@@ -109,7 +125,11 @@ public class Player extends MapObject {
 				
 			}
 		}
+<<<<<<< HEAD
 		//read and update health if upgraded 
+=======
+		
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		File file3 = new File("health.txt");
 		BufferedReader reader3 = null;
 		try{
@@ -158,7 +178,11 @@ public class Player extends MapObject {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 		//set animations 
+=======
+		
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		animation = new Animation();
 		currentAction = IDLE;
 		animation.setFrames(sprites.get(IDLE));
@@ -168,6 +192,7 @@ public class Player extends MapObject {
 	
 	
 	
+<<<<<<< HEAD
 	public int getHealth() {return health;}//getter for health
 	public int getMaxHealth() {return maxHealth;}//getter for max health 
 	public int getExperience( ){//get experience 
@@ -200,11 +225,49 @@ public class Player extends MapObject {
 	public void checkAttack(ArrayList<Enemy> enemies){//this checks our attacks and if we get hit 
 		
 		for(int i =0; i < enemies.size(); i++){//loop all enemies 
+=======
+	public int getHealth() {return health;}
+	public int getMaxHealth() {return maxHealth;}
+	public int getExperience( ){
+		return experience;
+	}
+	public void setDamage( int d ){
+		punchDamage = d;
+	}
+	public void setHealth( int h ){
+		health = maxHealth = h;
+	}
+	public void setExperience( int e ){
+		experience = e;
+	}
+	public void incrXP( int e ){
+		experience = experience + e;
+	}
+	public String getXP(){
+		return String.valueOf(experience);
+	}
+	public void setPunching(){
+		punching = true;
+	}
+	public void decrXP( int d ){
+		experience -= d;
+	}
+	public boolean isDead( ){
+		return dead;
+	}
+	public void checkAttack(ArrayList<Enemy> enemies){
+		
+		for(int i =0; i < enemies.size(); i++){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 			Enemy e = enemies.get(i);
 		
 		//check punch
 		
+<<<<<<< HEAD
 			if(punching){//if we are punching and enemy is in range we hit them 
+=======
+			if(punching){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 				if(facingRight){
 						if(e.getx() > x && e.getx() < x + punchRange && e.gety() > y - height/2 && e.gety() < y + height/2){
 							e.hit(punchDamage);
@@ -220,13 +283,21 @@ public class Player extends MapObject {
 			//check enemy collision
 			
 			}
+<<<<<<< HEAD
 			if(intersects(e)){//if we collide with an enemy we take a hit 
+=======
+			if(intersects(e)){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 				hit(e.getDamage());
 			}
 		}
 	}
 
+<<<<<<< HEAD
 	public void hit(int damage){//here is the hit function 
+=======
+	public void hit(int damage){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		if(flinching)return;
 		health -= damage;
 		if(health<0) health = 0;
@@ -235,7 +306,11 @@ public class Player extends MapObject {
 		flinchTimer = System.nanoTime();
 	}
 
+<<<<<<< HEAD
 	private void getNextPosition(){//get next position of the player 
+=======
+	private void getNextPosition(){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 		//movement
 		if(left){
 			dx -= moveSpeed;
@@ -373,4 +448,8 @@ public class Player extends MapObject {
 		
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345

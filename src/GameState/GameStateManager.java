@@ -8,7 +8,10 @@ public class GameStateManager {
    private ArrayList<GameState> gameStates;
    private int currentState;
 
+<<<<<<< HEAD
    // creating all the states that are used in the game
+=======
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
    
    public static final int MENUSTATE = 0;
    public static final int LEVEL1STATE = 1;

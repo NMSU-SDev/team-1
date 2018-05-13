@@ -13,25 +13,41 @@ public class Enemy extends MapObject {
     protected boolean flinching;
     protected long flinchTimer;
 
+<<<<<<< HEAD
     public Enemy( TileMap t ) {//construtor calls super constructor 
+=======
+    public Enemy( TileMap t ) {
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
         
         super( t );
 
     }
 
+<<<<<<< HEAD
     public boolean isDead( ){//checks if the enemy is dead 
+=======
+    public boolean isDead( ){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 
         return dead;
 
     }
 
+<<<<<<< HEAD
     public int getDamage( ) {//gets the enemy damage 
+=======
+    public int getDamage( ) {
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 
         return damage;
 
     }
 
+<<<<<<< HEAD
     public void hit( int d ) {//if hit is successful then remove damage from health 
+=======
+    public void hit( int d ) {
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
 
         if( dead || flinching )
            return;
@@ -49,7 +65,11 @@ public class Enemy extends MapObject {
     public void update( ){
         
     }
+<<<<<<< HEAD
     public int getHealth( ){//getter for health 
+=======
+    public int getHealth( ){
+>>>>>>> 75c1e0c616a4ee39d25b8d870b84f2b4d438c345
     	return maxHealth;
     }
 
